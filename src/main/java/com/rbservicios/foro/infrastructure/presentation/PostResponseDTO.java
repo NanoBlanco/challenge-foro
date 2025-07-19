@@ -11,7 +11,7 @@ public record PostResponseDTO(
         String content,
         String userName,
         List<String> tags,
-        @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-        LocalDateTime fechaPost
+        @JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss")
+        LocalDateTime createAt
 ) {
 }

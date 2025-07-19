@@ -19,13 +19,13 @@ public class Post {
     private User user;
     private List<Comment> comments = new ArrayList<>();
     private List<Tag> tags = new ArrayList<>();
-    private LocalDateTime fechaPost;
+    private LocalDateTime createAt;
 
-    public Post(String title, String content, User user, List<Tag> tags, LocalDateTime fechaPost) {
+    public Post(String title, String content, User user, List<Tag> tags, LocalDateTime createAt) {
         this.title = title;
         this.content = content;
         this.user = user;
         this.tags = (tags != null) ? tags : new ArrayList<>();
-        this.fechaPost = fechaPost;
+        this.createAt = createAt;
     }
 }

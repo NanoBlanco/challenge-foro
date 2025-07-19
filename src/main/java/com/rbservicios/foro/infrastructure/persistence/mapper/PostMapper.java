@@ -34,6 +34,7 @@ public class PostMapper {
                             .collect(Collectors.toList())
             );
         }
+        entity.setCreateAt(post.getCreateAt());
 
         return entity;
     }
@@ -88,6 +89,16 @@ public class PostMapper {
         post.setContent(entity.getContent());
         post.setUser(UserMapper.toDomain(entity.getUser()));
         return post;
+    }
+
+    public static PostEntity fromDomainWithoutTags(Post post) {
+        if (post == null) return null;
+        PostEntity entity = new PostEntity();
+        entity.setId(post.getId());
+        entity.setTitle(post.getTitle());
+        entity.setContent(post.getContent());
+        entity.setUser(UserMapper.fromDomain(post.getUser()));
+        return entity;
     }
 
 }

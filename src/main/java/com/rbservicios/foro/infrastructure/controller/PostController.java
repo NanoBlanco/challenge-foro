@@ -45,7 +45,7 @@ public class PostController {
                 datos.content(),
                 datos.userId(),
                 tags,
-                LocalDateTime.now() // fecha actual
+                LocalDateTime.now()
         );
 
         PostResponseDTO responseDTO = PostDtoMapper.toRespondDTO(PostMapper.fromDomain(post));

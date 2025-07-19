@@ -39,11 +39,11 @@ public class PostEntity {
     private List<TagEntity> tags = new ArrayList<>();
 
     @Column(name = "create_at")
-    private LocalDateTime createdAt;
+    private LocalDateTime createAt;
 
     @PrePersist
     public void prePersist() {
-        this.createdAt = LocalDateTime.now();
+        this.createAt = LocalDateTime.now();
     }
 
 }

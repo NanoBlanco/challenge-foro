@@ -2,6 +2,8 @@ package com.rbservicios.foro.infrastructure.persistence.mapper;
 
 import com.rbservicios.foro.domain.model.Comment;
 import com.rbservicios.foro.infrastructure.persistence.entity.CommentEntity;
+import com.rbservicios.foro.infrastructure.persistence.entity.PostEntity;
+import com.rbservicios.foro.infrastructure.persistence.entity.UserEntity;
 
 public class CommentMapper {
 
@@ -10,8 +12,18 @@ public class CommentMapper {
         CommentEntity entity = new CommentEntity();
         entity.setId(comment.getId());
         entity.setContent(comment.getContent());
-        entity.setUser(UserMapper.fromDomain(comment.getUser()));
-        entity.setPost(PostMapper.fromDomainWithoutComments(comment.getPost()));
+        if (comment.getUser() != null && comment.getUser().getId() != null){
+            UserEntity userEntity = new UserEntity();
+            userEntity.setId(comment.getUser().getId());
+            entity.setUser(userEntity);
+
+        }
+        if (comment.getPost() != null && comment.getPost().getId() != null) {
+            PostEntity postEntity = new PostEntity();
+            postEntity.setId(comment.getPost().getId());
+            entity.setPost(postEntity);
+        }
+        entity.setCreateAt(comment.getCreateAt());
         return  entity;
     }
 
@@ -22,6 +34,7 @@ public class CommentMapper {
         comment.setContent(entity.getContent());
         comment.setUser(UserMapper.toDomain(entity.getUser()));
         comment.setPost(PostMapper.toDomainWithoutComments(entity.getPost()));
+        comment.setCreateAt(entity.getCreateAt());
         return comment;
     }
 }

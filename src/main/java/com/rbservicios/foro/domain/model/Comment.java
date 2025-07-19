@@ -13,7 +13,7 @@ public class Comment {
 
     private Long id;
     private String content;
-    private LocalDateTime fechaComentario;
     private User user;
-    private  Post post;
+    private Post post;
+    private LocalDateTime createAt;
 }

@@ -4,8 +4,11 @@ import com.rbservicios.foro.domain.model.Post;
 import com.rbservicios.foro.domain.model.Tag;
 import com.rbservicios.foro.domain.model.User;
 import com.rbservicios.foro.domain.repository.PostRepository;
+import com.rbservicios.foro.domain.repository.TagRepository;
 import com.rbservicios.foro.infrastructure.persistence.JpaPostRepository;
+import com.rbservicios.foro.infrastructure.persistence.JpaTagRepository;
 import com.rbservicios.foro.infrastructure.persistence.entity.PostEntity;
+import com.rbservicios.foro.infrastructure.persistence.entity.TagEntity;
 import com.rbservicios.foro.infrastructure.persistence.mapper.PostMapper;
 import org.springframework.stereotype.Repository;
 
@@ -17,14 +20,26 @@ import java.util.stream.Collectors;
 public class PostRepositoryImpl implements PostRepository {
 
     private final JpaPostRepository repository;
+    private final JpaTagRepository tagRepository;
 
-    public PostRepositoryImpl(JpaPostRepository repository) {
+    public PostRepositoryImpl(JpaPostRepository repository, JpaTagRepository tagRepository) {
         this.repository = repository;
+        this.tagRepository = tagRepository;
     }
 
     @Override
     public Post save(Post post) {
-        PostEntity entity = PostMapper.fromDomain(post);
+        PostEntity entity = PostMapper.fromDomainWithoutTags(post);
+
+        if (post.getTags() != null && !post.getTags().isEmpty()) {
+            List<Long> tagIds = post.getTags().stream()
+                    .map(Tag::getId)
+                    .toList();
+
+            List<TagEntity> tagEntities = tagRepository.findAllById(tagIds); // <-- Debes inyectar JpaTagRepository
+            entity.setTags(tagEntities);
+        }
+
         entity = repository.save(entity);
         return PostMapper.toDomain(entity);
     }

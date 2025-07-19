@@ -25,7 +25,7 @@ public class PostDtoMapper {
                         .map(TagEntity::getNombre)
                         .collect(Collectors.toList())
                         : Collections.emptyList(),
-                entity.getCreatedAt()
+                entity.getCreateAt()
         );
     }
 

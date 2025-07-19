@@ -5,8 +5,8 @@ import java.time.LocalDateTime;
 public record CommentResponseDTO(
         Long id,
         String content,
-        String userName,
-        Long postId,
-        LocalDateTime fechaComentario
+        String username,
+        String title,
+        LocalDateTime createAt
 ) {
 }

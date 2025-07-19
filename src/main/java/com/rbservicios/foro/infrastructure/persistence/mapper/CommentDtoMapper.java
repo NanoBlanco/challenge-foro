@@ -7,6 +7,8 @@ import com.rbservicios.foro.infrastructure.persistence.entity.UserEntity;
 import com.rbservicios.foro.infrastructure.presentation.CommentRequestDTO;
 import com.rbservicios.foro.infrastructure.presentation.CommentResponseDTO;
 
+import java.time.LocalDateTime;
+
 public class CommentDtoMapper {
 
     public static CommentResponseDTO toRespondDTO(Comment comment) {
@@ -15,9 +17,9 @@ public class CommentDtoMapper {
         return new CommentResponseDTO(
                 comment.getId(),
                 comment.getContent(),
-                comment.getUser().getUsername(),
-                comment.getPost().getId(),
-                comment.getFechaComentario()
+                comment.getUser() != null ? comment.getUser().getUsername() : null,
+                comment.getPost() != null ? comment.getPost().getTitle() : null,
+                comment.getCreateAt()
         );
     }
 
@@ -29,6 +31,7 @@ public class CommentDtoMapper {
         entity.setContent(datos.content());
         entity.setUser(user);
         entity.setPost(post);
+        entity.setCreateAt(LocalDateTime.now());
         return entity;
     }
 }

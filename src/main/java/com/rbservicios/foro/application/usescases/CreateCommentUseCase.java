@@ -30,7 +30,7 @@ public class CreateCommentUseCase {
         Post post = postRepository.findById(postId)
                 .orElseThrow(() -> new IllegalArgumentException("Post no encontrado con id: " + postId));
 
-        Comment comment = new Comment(null, content, LocalDateTime.now(), user, post);
+        Comment comment = new Comment(null, content, user, post, LocalDateTime.now());
         return commentRepository.save(comment);
     }
 }

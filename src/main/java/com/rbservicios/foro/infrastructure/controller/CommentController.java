@@ -29,5 +29,5 @@ public class CommentController {
         CommentResponseDTO respuesta = CommentDtoMapper.toRespondDTO(comment);
         return ResponseEntity.status(HttpStatus.CREATED).body(respuesta);
     }
-    
+
 }
