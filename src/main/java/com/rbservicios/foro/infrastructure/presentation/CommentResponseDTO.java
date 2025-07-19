@@ -6,6 +6,7 @@ public record CommentResponseDTO(
         Long id,
         String content,
         String userName,
+        Long postId,
         LocalDateTime fechaComentario
 ) {
 }
