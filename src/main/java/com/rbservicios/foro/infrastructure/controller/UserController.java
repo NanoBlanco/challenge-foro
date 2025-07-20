@@ -1,10 +1,9 @@
 package com.rbservicios.foro.infrastructure.controller;
 
-import com.rbservicios.foro.application.usescases.CreateUserUseCase;
+import com.rbservicios.foro.application.usescases.user.CreateUserUseCase;
 import com.rbservicios.foro.domain.model.Role;
 import com.rbservicios.foro.domain.model.User;
 import com.rbservicios.foro.infrastructure.persistence.mapper.UserDtoMapper;
-import com.rbservicios.foro.infrastructure.persistence.mapper.UserMapper;
 import com.rbservicios.foro.infrastructure.presentation.UserRequestDTO;
 import com.rbservicios.foro.infrastructure.presentation.UserResponseDTO;
 import jakarta.validation.Valid;

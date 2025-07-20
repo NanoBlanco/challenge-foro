@@ -58,6 +58,7 @@ public class PostMapper {
                             .collect(Collectors.toList())
             );
         }
+        post.setCreateAt(entity.getCreateAt());
 
         // Comments
         if (entity.getComments() != null) {

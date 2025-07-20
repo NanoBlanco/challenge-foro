@@ -52,4 +52,9 @@ public class CommentRepositoryImpl implements CommentRepository {
     public List<Comment> findByUser_Id(Long id) {
         return repository.findByUser_Id(id).stream().map(CommentMapper::toDomain).toList();
     }
+
+    @Override
+    public List<Comment> findAll() {
+        return repository.findAll().stream().map(CommentMapper::toDomain).toList();
+    }
 }

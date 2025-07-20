@@ -12,4 +12,6 @@ public interface CommentRepository {
     Optional<Comment> findById(Long id);
     List<Comment> findByPost_Id(Long id);
     List<Comment> findByUser_Id(Long id);
+
+    List<Comment> findAll();
 }

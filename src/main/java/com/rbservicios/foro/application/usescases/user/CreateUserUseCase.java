@@ -1,4 +1,4 @@
-package com.rbservicios.foro.application.usescases;
+package com.rbservicios.foro.application.usescases.user;
 
 import com.rbservicios.foro.domain.model.User;
 import com.rbservicios.foro.domain.repository.UserRepository;

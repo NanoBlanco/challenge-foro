@@ -7,6 +7,7 @@ import com.rbservicios.foro.infrastructure.presentation.TagResponseDTO;
 import java.util.ArrayList;
 
 public class TagDtoMapper {
+
     public static TagResponseDTO toResponseDTO(Tag tag) {
         if (tag == null) return null;
 

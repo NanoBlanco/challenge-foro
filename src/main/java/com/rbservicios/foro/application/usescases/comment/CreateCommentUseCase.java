@@ -1,4 +1,4 @@
-package com.rbservicios.foro.application.usescases;
+package com.rbservicios.foro.application.usescases.comment;
 
 import com.rbservicios.foro.domain.model.Comment;
 import com.rbservicios.foro.domain.model.Post;

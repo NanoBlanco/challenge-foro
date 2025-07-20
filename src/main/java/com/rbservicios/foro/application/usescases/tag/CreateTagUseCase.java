@@ -1,4 +1,4 @@
-package com.rbservicios.foro.application.usescases;
+package com.rbservicios.foro.application.usescases.tag;
 
 import com.rbservicios.foro.domain.model.Tag;
 import com.rbservicios.foro.domain.repository.TagRepository;

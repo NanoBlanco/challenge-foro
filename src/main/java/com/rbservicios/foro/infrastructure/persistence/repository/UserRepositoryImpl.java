@@ -39,4 +39,8 @@ public class UserRepositoryImpl implements UserRepository {
     public Optional<User> findByUsername(String username) {
         return repository.findByUsername(username).map(UserMapper::toDomain);
     }
+
+    public long count() {
+        return repository.count();
+    }
 }

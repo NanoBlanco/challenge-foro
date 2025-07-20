@@ -27,7 +27,7 @@ public class UserDtoMapper {
         entity.setUsername(datos.username());
         entity.setCorreo(datos.correo());
         entity.setClave(datos.clave());
-        entity.setRole(Role.USER);
+        entity.setRole(datos.role());
         return entity;
     }
 }

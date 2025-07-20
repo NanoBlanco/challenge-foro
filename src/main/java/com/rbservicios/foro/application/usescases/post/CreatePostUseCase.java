@@ -1,4 +1,4 @@
-package com.rbservicios.foro.application.usescases;
+package com.rbservicios.foro.application.usescases.post;
 
 import com.rbservicios.foro.domain.model.Post;
 import com.rbservicios.foro.domain.model.Tag;
