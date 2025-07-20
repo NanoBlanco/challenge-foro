@@ -31,4 +31,5 @@ public class UserController {
         var respuesta = UserDtoMapper.toRespondDTO(nuevo);
         return ResponseEntity.status(HttpStatus.CREATED).body(respuesta);
     }
+
 }

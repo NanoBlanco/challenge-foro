@@ -1,6 +1,7 @@
 package com.rbservicios.foro.domain.repository;
 
 import com.rbservicios.foro.domain.model.User;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Optional;
 
