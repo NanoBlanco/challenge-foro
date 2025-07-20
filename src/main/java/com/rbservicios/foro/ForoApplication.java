@@ -14,15 +14,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @SpringBootApplication(scanBasePackages = "com.rbservicios.foro")
 public class ForoApplication {
 
-	@Autowired
-	PasswordEncoder passwordEncoder;
-
 	public static void main(String[] args) {
 		SpringApplication.run(ForoApplication.class, args);
 	}
 
 	@Bean
-	CommandLineRunner init(UserRepositoryImpl repository) {
+	CommandLineRunner init(UserRepositoryImpl repository, PasswordEncoder passwordEncoder) {
 		return args -> {
 			if (repository.count() == 0) {
 				var administrador = new User(null, "administrador", "admin@correo.com", passwordEncoder.encode("password"),  Role.ADMIN);

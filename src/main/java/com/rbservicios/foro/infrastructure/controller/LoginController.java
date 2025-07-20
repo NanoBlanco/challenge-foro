@@ -21,7 +21,7 @@ public class LoginController {
         this.loginUseCase = loginUseCase;
     }
 
-    @PostMapping
+    @PostMapping("/login")
     public ResponseEntity<AuthResponseDTO> login(@RequestBody @Valid AuthRequestDTO datos) {
         return new ResponseEntity<>(loginUseCase.loginUser(datos), HttpStatus.OK);
     }

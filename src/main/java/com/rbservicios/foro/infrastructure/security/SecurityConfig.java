@@ -5,6 +5,7 @@ import com.rbservicios.foro.domain.security.JwtAuthFilter;
 import com.rbservicios.foro.domain.security.JwtUtils;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -23,18 +24,22 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
 public class SecurityConfig {
 
     private final JwtUtils jwtUtil;
-    private final CustomUserDetailsService userDetailsService;
 
-    public SecurityConfig(JwtUtils jwtUtil, CustomUserDetailsService userDetailsService) {
+    public SecurityConfig(JwtUtils jwtUtil) {
         this.jwtUtil = jwtUtil;
-        this.userDetailsService = userDetailsService;
     }
 
+    @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(sm->sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authenticationProvider(authenticationProvider())
+                .authorizeHttpRequests(https -> {
+                    https.requestMatchers("/auth/**", "/usuarios/registrar").permitAll();
+                    https.requestMatchers("/v3/api-docs/**", "/swagger-ui.html","/swagger-ui/**").permitAll();
+                    https.requestMatchers("/posts/**","/tags/**","/comments/**").authenticated();
+                    https.anyRequest().authenticated();
+                })
                 .addFilterBefore(new JwtAuthFilter(jwtUtil), BasicAuthenticationFilter.class)
                 .build();
     }
@@ -45,9 +50,9 @@ public class SecurityConfig {
     }
 
     @Bean
-    AuthenticationProvider authenticationProvider() {
+    AuthenticationProvider authenticationProvider(CustomUserDetailsService service) {
         var provider = new DaoAuthenticationProvider();
-        provider.setUserDetailsService(userDetailsService);
+        provider.setUserDetailsService(service);
         provider.setPasswordEncoder(encoder());
         return provider;
     }

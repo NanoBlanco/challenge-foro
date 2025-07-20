@@ -24,9 +24,6 @@ import java.util.List;
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
 
-    @Autowired
-    PasswordEncoder passEncoder;
-
     private final UserRepositoryImpl userRepository;
     private final JwtUtils jwtUtil;
 
@@ -41,8 +38,8 @@ public class CustomUserDetailsService implements UserDetailsService {
         return userRepository.findByUsername(username)
                 .map(user -> new org.springframework.security.core.userdetails.User(
                         user.getUsername(),
-                        user.getClave(), // contraseña
-                        List.of(new SimpleGrantedAuthority("ROLE_" + user.getRole().name()))
+                        user.getClave(),
+                        List.of(new SimpleGrantedAuthority("ROLE_" + user.getRole()))
                 ))
                 .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado"));
     }
