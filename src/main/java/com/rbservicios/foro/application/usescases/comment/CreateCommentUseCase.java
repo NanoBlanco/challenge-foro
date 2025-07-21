@@ -7,6 +7,7 @@ import com.rbservicios.foro.domain.repository.CommentRepository;
 import com.rbservicios.foro.domain.repository.PostRepository;
 import com.rbservicios.foro.domain.repository.UserRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 
@@ -23,6 +24,7 @@ public class CreateCommentUseCase {
         this.postRepository = postRepository;
     }
 
+    @Transactional
     public Comment execute(Long userId, Long postId, String content) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new IllegalArgumentException("Usuario no encontrado con id: " + userId));

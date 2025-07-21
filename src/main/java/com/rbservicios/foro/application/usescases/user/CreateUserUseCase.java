@@ -10,6 +10,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class CreateUserUseCase {
@@ -22,6 +23,7 @@ public class CreateUserUseCase {
         this.repository = repository;
     }
 
+    @Transactional
     public User execute(User user) {
         if (repository.findByUsername(user.getUsername()).isPresent()) {
             throw new IllegalArgumentException("El nombre de usuario ya está registrado");

@@ -10,6 +10,8 @@ import com.rbservicios.foro.infrastructure.persistence.JpaTagRepository;
 import com.rbservicios.foro.infrastructure.persistence.entity.PostEntity;
 import com.rbservicios.foro.infrastructure.persistence.entity.TagEntity;
 import com.rbservicios.foro.infrastructure.persistence.mapper.PostMapper;
+import com.rbservicios.foro.infrastructure.presentation.PostUpdateReqDTO;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -36,7 +38,7 @@ public class PostRepositoryImpl implements PostRepository {
                     .map(Tag::getId)
                     .toList();
 
-            List<TagEntity> tagEntities = tagRepository.findAllById(tagIds); // <-- Debes inyectar JpaTagRepository
+            List<TagEntity> tagEntities = tagRepository.findAllById(tagIds);
             entity.setTags(tagEntities);
         }
 
@@ -69,4 +71,10 @@ public class PostRepositoryImpl implements PostRepository {
                 .map(PostMapper::toDomain)
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public void delete(Post post) {
+
+    }
+
 }
