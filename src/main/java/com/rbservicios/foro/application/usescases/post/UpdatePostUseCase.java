@@ -5,6 +5,7 @@ import com.rbservicios.foro.domain.repository.PostRepository;
 import com.rbservicios.foro.domain.repository.TagRepository;
 import com.rbservicios.foro.domain.repository.UserRepository;
 import com.rbservicios.foro.infrastructure.presentation.PostUpdateReqDTO;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.nio.file.AccessDeniedException;
@@ -25,23 +26,27 @@ public class UpdatePostUseCase {
 
     public void execute(PostUpdateReqDTO dato, String username) throws AccessDeniedException {
         var post = repository.findById(dato.id()).orElse(null);
-        if (!post.getUser().getUsername().equals(username)) {
-            throw new AccessDeniedException("No tiene permiso para modificar este post");
-        }
-
-        post.setTitle(dato.title());
-        post.setContent(dato.content());
-
-        if (dato.tagIds() != null && !dato.tagIds().isEmpty()) {
-            List<Tag> tags = tagRepository.findAllById(dato.tagIds());
-            if (tags.size() != dato.tagIds().size()){
-                throw new IllegalArgumentException("Algunos tags no existen");
+        if (post != null) {
+            if (!post.getUser().getUsername().equals(username)) {
+                throw new AccessDeniedException("No tiene permiso para modificar este post");
             }
-            post.setTags(tags);
+
+            post.setTitle(dato.title());
+            post.setContent(dato.content());
+
+            if (dato.tagIds() != null && !dato.tagIds().isEmpty()) {
+                List<Tag> tags = tagRepository.findAllById(dato.tagIds());
+                if (tags.size() != dato.tagIds().size()){
+                    throw new IllegalArgumentException("Algunos tags no existen");
+                }
+                post.setTags(tags);
+            } else {
+                post.setTags(Collections.emptyList());
+            }
+            post.setCreateAt(LocalDateTime.now());
+            repository.save(post);
         } else {
-            post.setTags(Collections.emptyList());
+            throw new EntityNotFoundException("Post no encontrado");
         }
-        post.setCreateAt(LocalDateTime.now());
-        repository.save(post);
     }
 }

@@ -57,4 +57,10 @@ public class CommentRepositoryImpl implements CommentRepository {
     public List<Comment> findAll() {
         return repository.findAll().stream().map(CommentMapper::toDomain).toList();
     }
+
+    @Override
+    public void delete(Comment comment) {
+        var entity = CommentMapper.fromDomain(comment);
+        repository.delete(entity);
+    }
 }

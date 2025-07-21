@@ -61,7 +61,7 @@ public class PostRepositoryImpl implements PostRepository {
         List<PostEntity> entities = repository.findByTags_Id(tag.getId());
         return entities.stream()
                 .map(PostMapper::toDomain)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @Override
@@ -69,12 +69,13 @@ public class PostRepositoryImpl implements PostRepository {
         List<PostEntity> entities = repository.findByUser_Id(user.getId());
         return entities.stream()
                 .map(PostMapper::toDomain)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @Override
     public void delete(Post post) {
-
+        var entity = PostMapper.fromDomain(post);
+        repository.delete(entity);
     }
 
 }
